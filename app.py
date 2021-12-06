@@ -35,8 +35,7 @@ def home():
             db.session.add(new_city_obj)
             db.session.commit()      
 
-    cities = City.query.all()
-    # cities = ['New Delhi' , 'Las Vegas', 'Paris']   
+    cities = City.query.all()   
     
     weather_data = []
     
@@ -47,12 +46,21 @@ def home():
             "city": city.name,
             "temperature": r["main"]['temp'],
             "description": r["weather"][0]["description"],
-            "icon" : r["weather"][0]["icon"]
+            "icon" : r["weather"][0]["icon"],
+            "id" : city.id
         }
 
         weather_data.append(weather)
     
     return render_template('weather.html', weather_data = weather_data)
+
+@app.route('/delete/<int:city_id>')
+def delete(city_id):
+    city = City.query.get(city_id)
+    db.session.delete(city)
+    db.session.commit()
+    return redirect(url_for('home'))
+
     
 if __name__ == '__main__':
     app.run(port=5000,debug=True)

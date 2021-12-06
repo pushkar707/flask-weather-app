@@ -40,15 +40,20 @@
     <div class="container"> 
     {% for weather in weather_data %}
     
-        <div class="border my-4 mx-3" style="height: 130px; width: 292px; float: left;">
+        <div class="border my-4 mx-3" style="height: 163px; width: 292px; float: left;">
             <div class="d-flex justify-content-center align-items-center">                
-                <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" width="100px" height="103px" style="margin-top: 12px;" >
+                <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" width="100px" height="103px" style="margin-top: 10px;" >
                  
                 <div style="padding-top: 6px; margin-left: 16px;" >
                     <h5 class="my-1"><b>{{weather.city}}</b></h5>
                     <p class="my-1">{{weather.temperature}}° C </p>
                     <p class="my-1">{{weather.description}}</p>                    
                 </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" style="width: 7vw;">
+                    <a href="{{url_for('delete',city_id=weather.id)}}" class="text-dark text-decoration-none">Delete</a>
+                </button>
             </div>
         </div>        
     {% endfor %}
